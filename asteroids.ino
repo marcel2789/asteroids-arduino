@@ -132,9 +132,7 @@ byte spriteDownArrow[8] = {
 	0b00000
 };
 
-int stone[16] = {
-  -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
-};
+int stone[16] = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 
 LiquidCrystal_I2C lcd(0x27, 16, 2); // I2C address 0x27, 16 column and 2 rows
 int up = 1;
@@ -153,7 +151,7 @@ void setup()
 {
   lcd.init(); // initialize the lcd
   lcd.backlight();
-
+  lcd.clear();
   switchScreen(screen);
 
   pinMode(13, INPUT_PULLUP);
@@ -165,6 +163,7 @@ void setup()
 
 void loop()
 {
+  long fstart = millis();
   lcd.clear();
   if (screen == "start") {
     startScreen();
@@ -177,7 +176,8 @@ void loop()
   }
   counter++;
   if (counter == 60) counter = 0;
-  delay(1000/fps);
+  long fend = millis();
+  if (1000/fps - (fend - fstart) > 0) delay(1000/fps - (fend-fstart));
 }
 
 void startScreen() 
@@ -226,7 +226,7 @@ void ingameScreen()
   if (playerpos - 1 == stone[stonepos] && playerpos - 1 != -1) collision = true;
   if (playerpos  == stone[stonepos]) collision = true;
   if (playerpos + 1 == stone[stonepos]) collision = true;
-  if (collision) switchScreen("gameover");
+  //if (collision) switchScreen("gameover");
 
   // Input
   if (digitalRead(13) == 0 && digitalRead(13) != up) {
@@ -297,6 +297,10 @@ void switchScreen(String name)
     nextstone = 0;
     score = 0;
     difficulty = 5;
+
+    for (int i = 0; i < 16; i++) {
+      stone[i] = -1;
+    }
   }
   if (name == "gameover") {
     screen = "gameover";
@@ -348,10 +352,20 @@ void drawPlayer(int x, int y)
     lcd.write((byte)0);
   }
   if (y == 2) {
-    lcd.setCursor(x, 0);
-    lcd.write((byte)1);
-    lcd.setCursor(x, 1);
-    lcd.write((byte)2);
+    if (y - 2 == stone[stonepos]) {
+      lcd.setCursor(x, 0);
+      lcd.write((byte)6);
+    } else {
+      lcd.setCursor(x, 0);
+      lcd.write((byte)1);
+    }
+    if (y + 2 == stone[stonepos]) {
+      lcd.setCursor(x, 1);
+      lcd.write((byte)7);
+    } else {
+      lcd.setCursor(x, 1);
+      lcd.write((byte)2);
+    }
   }
   if (y == 3) {
     lcd.setCursor(x, 1);
@@ -367,4 +381,3 @@ void drawPlayer(int x, int y)
     }
   }
 }
-
