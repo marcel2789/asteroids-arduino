@@ -182,14 +182,22 @@ void loop()
 
 void startScreen() 
 {
-  lcd.setCursor(3,0);
+  lcd.setCursor(6,0);
   lcd.print("ARDUINOIDS");
-  lcd.setCursor(4,1);
-  lcd.print("PRESS");
-  lcd.setCursor(10,1);
-  lcd.write((byte)3);
+  lcd.setCursor(8,1);
+  lcd.print("PRESS UP");
+  drawPlayer(0,2);
   while (digitalRead(13) == 1) {}
   while (digitalRead(13) == 0) {}
+  for (int i; i<10; i++) {
+    lcd.clear();
+    lcd.setCursor(6+i,0);
+    lcd.print("ARDUINOIDS");
+    lcd.setCursor(8+i,1);
+    lcd.print("PRESS UP");
+    drawPlayer(0,2);
+    delay(1000/fps);
+  }
   delay(100);
   switchScreen("ingame");
 }
@@ -226,7 +234,7 @@ void ingameScreen()
   if (playerpos - 1 == stone[stonepos] && playerpos - 1 != -1) collision = true;
   if (playerpos  == stone[stonepos]) collision = true;
   if (playerpos + 1 == stone[stonepos]) collision = true;
-  //if (collision) switchScreen("gameover");
+  if (collision) switchScreen("gameover");
 
   // Input
   if (digitalRead(13) == 0 && digitalRead(13) != up) {
@@ -278,8 +286,8 @@ void switchScreen(String name)
 {
   if (name == "start") {
     screen = "start";
-    lcd.createChar(3, spriteUpArrow);
-    lcd.createChar(4, spriteDownArrow);
+    lcd.createChar(1, spritePlayerTop);
+    lcd.createChar(2, spritePlayerBottom);
   }
   if (name == "ingame") {
     screen = "ingame";
