@@ -2,134 +2,134 @@
 
 // Sprites
 byte spritePlayerNormal[8] = {
-	0b00000,
-	0b10000,
-	0b11100,
-	0b11111,
-	0b11111,
-	0b11100,
-	0b10000,
-	0b00000
+  0b00000,
+  0b10000,
+  0b11100,
+  0b11111,
+  0b11111,
+  0b11100,
+  0b10000,
+  0b00000
 };
 byte spritePlayerTop[8] = {
-	0b00000,
-	0b00000,
-	0b00000,
-	0b00000,
-	0b00000,
-	0b10000,
-	0b11100,
-	0b11111
+  0b00000,
+  0b00000,
+  0b00000,
+  0b00000,
+  0b00000,
+  0b10000,
+  0b11100,
+  0b11111
 };
 byte spritePlayerBottom[8] = {
-	0b11111,
-	0b11100,
-	0b10000,
-	0b00000,
-	0b00000,
-	0b00000,
-	0b00000,
-	0b00000
+  0b11111,
+  0b11100,
+  0b10000,
+  0b00000,
+  0b00000,
+  0b00000,
+  0b00000,
+  0b00000
 };
 byte spriteStoneNormal[8] = {
-	0b01110,
-	0b11111,
-	0b11111,
-	0b11111,
-	0b11111,
-	0b11111,
-	0b11111,
-	0b01110
+  0b01110,
+  0b11111,
+  0b11111,
+  0b11111,
+  0b11111,
+  0b11111,
+  0b11111,
+  0b01110
 };
 byte spriteStoneTop[8] = {
-	0b00000,
-	0b00000,
-	0b00000,
-	0b00000,
-	0b01110,
-	0b11111,
-	0b11111,
-	0b11111
+  0b00000,
+  0b00000,
+  0b00000,
+  0b00000,
+  0b01110,
+  0b11111,
+  0b11111,
+  0b11111
 };
 byte spriteStoneBottom[8] = {
-	0b11111,
-	0b11111,
-	0b11111,
-	0b01110,
-	0b00000,
-	0b00000,
-	0b00000,
-	0b00000
+  0b11111,
+  0b11111,
+  0b11111,
+  0b01110,
+  0b00000,
+  0b00000,
+  0b00000,
+  0b00000
 };
 byte spritePlayerStoneTop[8] = {
-	0b11111,
-	0b11111,
-	0b11111,
-	0b01110,
-	0b00000,
-	0b10000,
-	0b11100,
-	0b11111
+  0b11111,
+  0b11111,
+  0b11111,
+  0b01110,
+  0b00000,
+  0b10000,
+  0b11100,
+  0b11111
 };
 byte spritePlayerStoneBottom[8] = {
-	0b11111,
-	0b11100,
-	0b10000,
-	0b00000,
-	0b01110,
-	0b11111,
-	0b11111,
-	0b11111
+  0b11111,
+  0b11100,
+  0b10000,
+  0b00000,
+  0b01110,
+  0b11111,
+  0b11111,
+  0b11111
 };
 byte spritePlayerNormalBroken[8] = {
-	0b10000,
-	0b11100,
-	0b00111,
-	0b11100,
-	0b11011,
-	0b11100,
-	0b10000,
-	0b00000
+  0b10000,
+  0b11100,
+  0b00111,
+  0b11100,
+  0b11011,
+  0b11100,
+  0b10000,
+  0b00000
 };
 byte spritePlayerTopBroken[8] = {
-	0b00000,
-	0b00000,
-	0b00000,
-	0b00000,
-	0b10000,
-	0b11100,
-	0b00111,
-	0b11100
+  0b00000,
+  0b00000,
+  0b00000,
+  0b00000,
+  0b10000,
+  0b11100,
+  0b00111,
+  0b11100
 };
 byte spritePlayerBottomBroken[8] = {
-	0b11011,
-	0b11100,
-	0b10000,
-	0b00000,
-	0b00000,
-	0b00000,
-	0b00000,
-	0b00000
+  0b11011,
+  0b11100,
+  0b10000,
+  0b00000,
+  0b00000,
+  0b00000,
+  0b00000,
+  0b00000
 };
 byte spriteUpArrow[8] = {
-	0b00000,
-	0b00100,
-	0b01110,
-	0b11111,
-	0b00000,
-	0b00000,
-	0b00000,
-	0b00000
+  0b00000,
+  0b00100,
+  0b01110,
+  0b11111,
+  0b00000,
+  0b00000,
+  0b00000,
+  0b00000
 };
 byte spriteDownArrow[8] = {
-	0b00000,
-	0b00000,
-	0b00000,
-	0b00000,
-	0b11111,
-	0b01110,
-	0b00100,
-	0b00000
+  0b00000,
+  0b00000,
+  0b00000,
+  0b00000,
+  0b11111,
+  0b01110,
+  0b00100,
+  0b00000
 };
 
 int stone[16] = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
@@ -157,7 +157,7 @@ void setup()
   pinMode(13, INPUT_PULLUP);
   pinMode(12, INPUT_PULLUP);
 
-  randomSeed(98423589);
+  randomSeed(analogRead(A1));
 }
 
 
@@ -188,16 +188,19 @@ void startScreen()
   lcd.print("PRESS UP");
   drawPlayer(0,2);
   while (digitalRead(13) == 1) {}
+  tone(11, 700, 100);
   while (digitalRead(13) == 0) {}
-  for (int i; i<10; i++) {
+  for (int i = 0; i<10; i++) {
     lcd.clear();
     lcd.setCursor(6+i,0);
     lcd.print("ARDUINOIDS");
     lcd.setCursor(8+i,1);
     lcd.print("PRESS UP");
     drawPlayer(0,2);
+    tone(11, 300+i*7);
     delay(1000/fps);
   }
+  noTone(11);
   delay(100);
   switchScreen("ingame");
 }
@@ -240,6 +243,7 @@ void ingameScreen()
   if (digitalRead(13) == 0 && digitalRead(13) != up) {
     playerpos--;
     up = 0;
+    tone(11, 700, 100);
   }
   if (digitalRead(13) == 1 && digitalRead(13) != up) {
     up = 1;
@@ -247,6 +251,7 @@ void ingameScreen()
   if (digitalRead(12) == 0 && digitalRead(12) != down) {
     playerpos++;
     down = 0;
+    tone(11, 500, 100);
   }
   if (digitalRead(12) == 1 && digitalRead(12) != down) {
     down = 1;
@@ -271,6 +276,12 @@ void gameOverScreen()
 {
   lcd.setCursor(7,0);
   lcd.print("GAME OVER");
+  tone(11, 700, 500);
+  delay(500);
+  tone(11, 500, 500);
+  delay(500);
+  tone(11, 300, 500);
+  delay(500);
   lcd.setCursor(6,1);
   lcd.print("SCORE:");
   lcd.setCursor(16 - String(score).length(), 1);
